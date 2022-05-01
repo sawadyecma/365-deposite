@@ -1,3 +1,4 @@
+import { Color, newColor } from "../domain/color";
 import { Day } from "../domain/day";
 
 interface Props {
@@ -11,7 +12,7 @@ export const DayCell = ({ day, onDayClick }: Props) => {
       style={{
         width: "40px",
         height: "40px",
-        backgroundColor: day.pressed ? "red" : "",
+        backgroundColor: day.pressed ? day.pressedColor : "",
       }}
       onClick={() => {
         onDayClick(day);
