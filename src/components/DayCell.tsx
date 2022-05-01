@@ -1,4 +1,4 @@
-import { Day } from "../types";
+import { Day } from "../domain/day";
 
 interface Props {
   day: Day;

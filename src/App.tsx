@@ -1,52 +1,22 @@
 import { useState } from "react";
-import { createCalendar } from "./constants";
-import { Day } from "./types";
-import { DayCell } from "./components/DayCell";
+import { Calendar } from "./components/Calendar";
+import { Day, DAYS_PER_YEAR } from "./domain/day";
 
 export const App = () => {
-  const [calendar, setCalendar] = useState(createCalendar());
-  const handleDayClick = (argDay: Day, row: string) => {
-    setCalendar((calendar) => {
-      const copied = { ...calendar };
-      const foundIndex = calendar[row].findIndex(
-        (day) => day.value === argDay.value
-      );
-      copied[row][foundIndex] = { ...argDay, pressed: !argDay.pressed };
-      return copied;
-    });
+  const [days, setDays] = useState<Day[]>(
+    [...new Array(DAYS_PER_YEAR)].map((_, index) => {
+      return { value: index + 1, pressed: false };
+    })
+  );
+
+  const handleCalendarChange = (argDays: Day[]) => {
+    setDays(argDays);
   };
 
   return (
     <div className="App">
-      <h1>365 deposite</h1>
-      <div
-        style={{
-          overflowX: "auto",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {Object.keys(calendar).map((row) => {
-          return (
-            <div
-              key={row}
-              style={{
-                height: "40px",
-              }}
-            >
-              {calendar[row].map((day) => {
-                return (
-                  <DayCell
-                    key={day.value}
-                    day={day}
-                    onDayClick={(day) => handleDayClick(day, row)}
-                  />
-                );
-              })}
-              <br />
-            </div>
-          );
-        })}
-      </div>
+      <h1>365日貯金</h1>
+      <Calendar days={days} onCalendarChange={handleCalendarChange} />
     </div>
   );
 };
