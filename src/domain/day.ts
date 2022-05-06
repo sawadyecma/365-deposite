@@ -15,8 +15,15 @@ export function newDays(dayPerYear = DAYS_PER_YEAR) {
   return [...new Array(DAYS_PER_YEAR)].map((_, index) => {
     return {
       value: index + 1,
-      pressed: Math.random() > 0.5,
+      // pressed: Math.random() > 0.5,
+      pressed: false,
       pressedColor: colors[index],
     };
   });
+}
+
+export function sumPressedDays(days: Day[]) {
+  return days.reduce((acc, cur) => {
+    return acc + (cur.pressed ? cur.value : 0);
+  }, 0);
 }
