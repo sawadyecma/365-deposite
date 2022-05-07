@@ -13,6 +13,9 @@ export const theme = createTheme({
       default: grey[300],
     },
   },
+  typography: {
+    fontFamily: "Noto Sans JP",
+  },
   components: {
     MuiPaper: {
       defaultProps: {
