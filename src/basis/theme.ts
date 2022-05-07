@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { purple, yellow } from "@mui/material/colors";
+import { purple, yellow, grey } from "@mui/material/colors";
 
 export const theme = createTheme({
   palette: {
@@ -8,6 +8,21 @@ export const theme = createTheme({
     },
     secondary: {
       main: purple[500],
+    },
+    background: {
+      default: grey[300],
+    },
+  },
+  components: {
+    MuiPaper: {
+      defaultProps: {
+        elevation: 3,
+      },
+    },
+    MuiCard: {
+      defaultProps: {
+        elevation: 1,
+      },
     },
   },
 });

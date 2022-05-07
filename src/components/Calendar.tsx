@@ -21,7 +21,7 @@ export const Calendar = ({ dayCntPerRow = 20, ...props }: Props) => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <Grid container spacing={0.5} columns={{ xs: 7, sm: 10, md: 20, lg: 20 }}>
         {props.days.map((day) => (
           <Grid item xs={1} sm={1} md={1} lg={1} key={day.value}>
