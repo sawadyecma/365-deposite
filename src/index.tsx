@@ -1,6 +1,7 @@
-import { StyledEngineProvider } from "@mui/material/styles";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
+import { theme } from "./basis/theme";
 
 const container = document.querySelector("#app");
 
@@ -8,8 +9,9 @@ const container = document.querySelector("#app");
 if (container) {
   const root = createRoot(container);
   root.render(
-    <StyledEngineProvider injectFirst>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <App />
-    </StyledEngineProvider>
+    </ThemeProvider>
   );
 }
