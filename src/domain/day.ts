@@ -8,17 +8,37 @@ export interface Day {
   pressedColor?: Color;
 }
 
-export function newDays(dayPerYear = DAYS_PER_YEAR) {
+interface NewDaysArg {
+  dayPerYear?: number;
+  isRandom?: boolean;
+}
+
+const defaultNewDaysArg: Required<NewDaysArg> = {
+  dayPerYear: DAYS_PER_YEAR,
+  isRandom: false,
+};
+
+export function newDays(opt: NewDaysArg) {
+  const params = { ...defaultNewDaysArg, ...opt };
+
   const startColor = "#FFE300";
   const endColor = "#FF09CC";
-  const colors = graduateColor(startColor, endColor, dayPerYear);
-  return [...new Array(DAYS_PER_YEAR)].map((_, index) => {
+  const colors = graduateColor(startColor, endColor, params.dayPerYear);
+
+  const days = [...new Array(DAYS_PER_YEAR)].map((_, index) => {
     return {
       value: index + 1,
-      // pressed: Math.random() > 0.5,
       pressed: false,
       pressedColor: colors[index],
     };
+  });
+
+  if (!params.isRandom) {
+    return days;
+  }
+
+  return days.map((day) => {
+    return { ...day, pressed: Math.random() > 0.5 };
   });
 }
 

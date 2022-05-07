@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { separateDays } from "../domain/calendar";
+import * as React from "react";
 import { Day } from "../domain/day";
-import { DayCell } from "./DayCell";
+import { experimentalStyled as styled } from "@mui/material/styles";
+
+import { Card, CardActionArea, CardContent, Grid, Box } from "@mui/material";
 
 interface Props {
   days: Day[];
@@ -10,8 +11,6 @@ interface Props {
 }
 
 export const Calendar = ({ dayCntPerRow = 20, ...props }: Props) => {
-  const calendar = separateDays(props.days, dayCntPerRow);
-
   const handleDayClick = (argDay: Day) => {
     const copied = [...props.days];
     const foundIndex = props.days.findIndex(
@@ -22,33 +21,24 @@ export const Calendar = ({ dayCntPerRow = 20, ...props }: Props) => {
   };
 
   return (
-    <div
-      style={{
-        overflowX: "auto",
-        whiteSpace: "nowrap",
-      }}
-    >
-      {Object.keys(calendar).map((row) => {
-        return (
-          <div
-            key={row}
-            style={{
-              height: "40px",
-            }}
-          >
-            {calendar[row].map((day) => {
-              return (
-                <DayCell
-                  key={day.value}
-                  day={day}
-                  onDayClick={(day) => handleDayClick(day)}
-                />
-              );
-            })}
-            <br />
-          </div>
-        );
-      })}
-    </div>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={0.5} columns={{ xs: 7, sm: 10, md: 20, lg: 20 }}>
+        {props.days.map((day) => (
+          <Grid item xs={1} sm={1} md={1} lg={1} key={day.value}>
+            <Card
+              sx={{
+                backgroundColor: day.pressed ? day.pressedColor : "",
+                cursor: "pointer",
+                textAlign: "center",
+              }}
+            >
+              <CardActionArea onClick={() => handleDayClick(day)}>
+                <CardContent sx={{ padding: 1 }}>{day.value}</CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 };
