@@ -24,12 +24,12 @@ export const App = () => {
         rowSpacing={{ xs: 1, sm: 2 }}
         padding={{ xs: 1, sm: 2 }}
       >
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} md={4}>
           <Paper sx={{ padding: 2 }}>
             <Summary days={days} />
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} md={4}>
           <Paper sx={{ padding: 2 }}>
             <Config />
           </Paper>
