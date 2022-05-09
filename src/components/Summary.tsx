@@ -1,4 +1,10 @@
-import { Table, TableCell, TableRow, Typography } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { Day, sumPressedDays } from "../domain/day";
 
 interface Props {
@@ -21,14 +27,16 @@ export const Summary = ({ days, ...props }: Props) => {
     <>
       <Typography variant="h5">サマリー</Typography>
       <Table size="small" sx={{ marginTop: 1 }}>
-        {rows.map((row) => {
-          return (
-            <TableRow>
-              <TableCell>{row.name}</TableCell>
-              <TableCell align="right">{row.value}</TableCell>
-            </TableRow>
-          );
-        })}
+        <TableBody>
+          {rows.map((row) => {
+            return (
+              <TableRow key={row.name}>
+                <TableCell>{row.name}</TableCell>
+                <TableCell align="right">{row.value}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
       </Table>
     </>
   );
