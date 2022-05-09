@@ -18,7 +18,7 @@ const defaultNewDaysArg: Required<NewDaysArg> = {
   isRandom: false,
 };
 
-export function newDays(opt: NewDaysArg) {
+export function newDays(opt?: NewDaysArg) {
   const params = { ...defaultNewDaysArg, ...opt };
 
   const startColor = "#FFE300";

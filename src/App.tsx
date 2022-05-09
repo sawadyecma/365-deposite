@@ -1,17 +1,18 @@
-import { Grid, Paper, Stack, styled } from "@mui/material";
-import { useState } from "react";
+import { Grid, Paper } from "@mui/material";
+import { dayClick } from "./basis/global-state/features/day/slice";
+import { useAppDispatch, useAppSelector } from "./basis/global-state/hooks";
 import { AppHeader } from "./components/AppHeader";
 import { Calendar } from "./components/Calendar";
 import { Config } from "./components/Config";
 import { Summary } from "./components/Summary";
-import { Day, newDays } from "./domain/day";
+import { Day } from "./domain/day";
 
 export const App = () => {
-  // TODO redux-toolkitの導入。
-  const [days, setDays] = useState<Day[]>(newDays({ isRandom: true }));
+  const days = useAppSelector((state) => state.day.days);
+  const dispatch = useAppDispatch();
 
-  const handleCalendarChange = (argDays: Day[]) => {
-    setDays(argDays);
+  const handleCalendarChange = (argDay: Day) => {
+    dispatch(dayClick(argDay));
   };
 
   return (
