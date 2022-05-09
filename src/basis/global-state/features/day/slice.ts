@@ -6,7 +6,7 @@ export interface DayState {
 }
 
 const initialState: DayState = {
-  days: newDays({ isRandom: true }),
+  days: newDays(),
 };
 
 export const daySlice = createSlice({
