@@ -1,5 +1,4 @@
 import { Grid, Paper } from "@mui/material";
-import { differenceInCalendarDays } from "date-fns";
 import { dayClick } from "./basis/global-state/features/day/slice";
 import { onStartDateChange } from "./basis/global-state/features/setting/slice";
 import { useAppDispatch, useAppSelector } from "./basis/global-state/hooks";
@@ -11,7 +10,9 @@ import { Day } from "./domain/day";
 
 export const App = () => {
   const days = useAppSelector((state) => state.day.days);
-  const { startDate } = useAppSelector((state) => state.setting);
+  const startDate = useAppSelector(
+    (state) => new Date(state.setting.startDate)
+  );
   const dispatch = useAppDispatch();
 
   const handleCalendarChange = (argDay: Day) => {

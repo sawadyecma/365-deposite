@@ -1,7 +1,10 @@
 import { Box, TextField, Typography } from "@mui/material";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { ja } from "date-fns/locale";
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+import ja from "date-fns/locale/ja";
+
+registerLocale("ja", ja);
 
 interface Props {
   date: Date;
@@ -13,19 +16,13 @@ export const Config = ({ date, onDateChange }: Props) => {
     <>
       <Typography variant="h5">設定</Typography>
       <Box p={1} pt={2}>
-        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
-          <DatePicker
-            label="貯金をはじめた日"
-            value={date}
-            onChange={(date: Date | null) => {
-              if (!date) {
-                return;
-              }
-              onDateChange(date);
-            }}
-            renderInput={(props) => <TextField {...props} size="small" />}
-          />
-        </LocalizationProvider>
+        <DatePicker
+          selected={date}
+          onChange={(date: Date) => onDateChange(date)}
+          locale="ja"
+          dateFormat="yyyy年/MM月/dd日"
+          customInput={<TextField label="貯金をはじめた日" />}
+        />
       </Box>
     </>
   );

@@ -13,8 +13,8 @@ interface Props {
   startDate: Date;
 }
 
-function createRow(name: string, value: number | string) {
-  return { name, value };
+function createRow(name: string, value: number | string, unit: string) {
+  return { name, value, unit };
 }
 
 export const Summary = ({ days, startDate, ...props }: Props) => {
@@ -23,10 +23,10 @@ export const Summary = ({ days, startDate, ...props }: Props) => {
   const skippedDayCount = passedDayCount - checkedDayLen;
 
   const rows = [
-    createRow("貯金額", `${sumPressedDays(days)} 円`),
-    createRow("貯金した日数", `${checkedDayLen} 日`),
-    createRow("貯金開始からの経過日", passedDayCount || "-"),
-    createRow("貯金していない日数", skippedDayCount || "-"),
+    createRow("貯金額", sumPressedDays(days), "円"),
+    createRow("貯金した日数", checkedDayLen, "日"),
+    createRow("貯金開始からの経過日", passedDayCount || "-", "日"),
+    createRow("貯金していない日数", skippedDayCount || "-", "日"),
   ];
 
   return (
@@ -38,7 +38,9 @@ export const Summary = ({ days, startDate, ...props }: Props) => {
             return (
               <TableRow key={row.name}>
                 <TableCell>{row.name}</TableCell>
-                <TableCell align="right">{row.value}</TableCell>
+                <TableCell align="right">
+                  {row.value} {row.unit}
+                </TableCell>
               </TableRow>
             );
           })}

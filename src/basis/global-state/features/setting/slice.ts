@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { startOfYear } from "date-fns";
 
 export interface SettingState {
-  startDate: Date;
+  // startDate: Date;
+  startDate: string;
 }
 
 const initialState: SettingState = {
-  startDate: startOfYear(new Date()),
+  // startDate: startOfYear(new Date()),
+  startDate: startOfYear(new Date()).toISOString(),
 };
 
 export const settingSlice = createSlice({
@@ -14,7 +16,7 @@ export const settingSlice = createSlice({
   initialState,
   reducers: {
     onStartDateChange: (state, action: PayloadAction<Date>) => {
-      state.startDate = action.payload;
+      state.startDate = action.payload.toISOString();
     },
   },
 });
