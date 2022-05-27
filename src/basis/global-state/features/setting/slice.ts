@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Day, newDays } from "../../../../domain/day";
+import { startOfYear } from "date-fns";
 
 export interface SettingState {
-  startDate: Date | null;
+  startDate: Date;
 }
 
 const initialState: SettingState = {
-  startDate: null,
+  startDate: startOfYear(new Date()),
 };
 
 export const settingSlice = createSlice({
   name: "setting",
   initialState,
   reducers: {
-    onStartDateChange: (state, action: PayloadAction<Date | null>) => {
+    onStartDateChange: (state, action: PayloadAction<Date>) => {
       state.startDate = action.payload;
     },
   },

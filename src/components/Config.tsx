@@ -4,8 +4,8 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ja } from "date-fns/locale";
 
 interface Props {
-  date: Date | null;
-  onDateChange: (date: Date | null) => void;
+  date: Date;
+  onDateChange: (date: Date) => void;
 }
 
 export const Config = ({ date, onDateChange }: Props) => {
@@ -15,9 +15,14 @@ export const Config = ({ date, onDateChange }: Props) => {
       <Box p={1} pt={2}>
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
           <DatePicker
-            label="貯金開始日"
+            label="貯金をはじめた日"
             value={date}
-            onChange={onDateChange}
+            onChange={(date: Date | null) => {
+              if (!date) {
+                return;
+              }
+              onDateChange(date);
+            }}
             renderInput={(props) => <TextField {...props} size="small" />}
           />
         </LocalizationProvider>
