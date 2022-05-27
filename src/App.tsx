@@ -1,5 +1,6 @@
 import { Grid, Paper } from "@mui/material";
 import { dayClick } from "./basis/global-state/features/day/slice";
+import { onStartDateChange } from "./basis/global-state/features/setting/slice";
 import { useAppDispatch, useAppSelector } from "./basis/global-state/hooks";
 import { AppHeader } from "./components/AppHeader";
 import { Calendar } from "./components/Calendar";
@@ -9,10 +10,15 @@ import { Day } from "./domain/day";
 
 export const App = () => {
   const days = useAppSelector((state) => state.day.days);
+  const { startDate } = useAppSelector((state) => state.setting);
   const dispatch = useAppDispatch();
 
   const handleCalendarChange = (argDay: Day) => {
     dispatch(dayClick(argDay));
+  };
+
+  const handleStartDateChange = (startDate: Date | null) => {
+    dispatch(onStartDateChange(startDate));
   };
 
   return (
@@ -32,7 +38,7 @@ export const App = () => {
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <Paper sx={{ padding: 2 }}>
-            <Config />
+            <Config date={startDate} onDateChange={handleStartDateChange} />
           </Paper>
         </Grid>
         <Grid item>

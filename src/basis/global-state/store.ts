@@ -11,10 +11,15 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { settingSliceReducer } from "./features/setting/slice";
 
 export const store = configureStore({
   reducer: {
     day: persistReducer({ key: "days", version: 1, storage }, daySliceReducer),
+    setting: persistReducer(
+      { key: "setting", version: 1, storage },
+      settingSliceReducer
+    ),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
